@@ -4,6 +4,7 @@ import 'firebase/compat/auth';
 import {useAuthState} from "react-firebase-hooks/auth";
 import Chatting from './Components/Chatting';
 import Signup from './Components/Signup';
+import { Box } from '@chakra-ui/react';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDu9vt8G3TVHwkJvfilXa0lyvwst3Da_lI",
@@ -20,14 +21,14 @@ const auth = firebase.auth();
 
 function App() {
   const [user] = useAuthState(auth);
-  console.log(user);
+  document.body.style = 'background: #383838;';
   return (
-    <div className="App">
-      <section>
-        umang
+    <Box className="App">
+      <Box>
+        
        {user ? <Chatting /> : <Signup />}
-      </section>
-     </div>
+      </Box>
+     </Box>
   );
 }
 
