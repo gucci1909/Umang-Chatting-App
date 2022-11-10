@@ -122,7 +122,7 @@ function Chatting() {
       <Button colorScheme='blue' zIndex={2} onClick={()=>auth.signOut()}>Sign Out</Button>
 
       </Flex>
-      <Flex flexDirection={'column'} mt={{base:"120px",lg:"30px"}} gap={"6"}>
+      <Flex flexDirection={'column'} mt={{base:"10px",lg:"30px"}} gap={"6"}>
 
       {data.chattingapps && data.chattingapps.map((el,i) => (
         photoURL===el.photoURL ? 
