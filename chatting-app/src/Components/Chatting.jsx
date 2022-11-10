@@ -23,7 +23,7 @@ function Chatting() {
     const [messageValue,setMessageValue] = useState("");
     const [data,setData] = useState([]);
     const handleData = async()=>{
-      let res = await fetch(`http://localhost:3000/chatting`);
+      let res = await fetch(`https://dry-hamlet-98371.herokuapp.com/chatting`);
       res = await res.json();
       setData(res);
       space.current.scrollIntoView({block: "end"});
@@ -45,7 +45,7 @@ function Chatting() {
           message:messageValue,
           photoURL: photoURL
         };
-        let res = await fetch(`http://localhost:3000/chatting`,{
+        let res = await fetch(`https://dry-hamlet-98371.herokuapp.com/chatting`,{
           method: "POST",
           body: JSON.stringify(data1),
           headers: {
@@ -80,7 +80,7 @@ function Chatting() {
         const data = {
           message: message
         }
-        let res = await fetch(`http://localhost:3000/chatting/${id}`,{
+        let res = await fetch(`https://dry-hamlet-98371.herokuapp.com/chatting/${id}`,{
           method: "PATCH",
           body: JSON.stringify(data),
           headers: {
@@ -98,7 +98,7 @@ function Chatting() {
       let {photoURL} = auth.currentUser;
       if(photoURL===currentPhotoURL){
         
-        let res = await fetch(`http://localhost:3000/chatting/${id}`,{
+        let res = await fetch(`https://dry-hamlet-98371.herokuapp.com/chatting/${id}`,{
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -114,6 +114,7 @@ function Chatting() {
 
     }
     const {photoURL} = auth.currentUser;
+    // fontSize={{ base: '24px', md: '40px', lg: '56px' }}
   return (<>
     <Box>
       <Flex justify='center' alignItems='centre' height="40px" mt={3} gap='2'>
@@ -121,11 +122,11 @@ function Chatting() {
       <Button colorScheme='blue' zIndex={2} onClick={()=>auth.signOut()}>Sign Out</Button>
 
       </Flex>
-      <Flex flexDirection={'column'} gap={"6"}>
+      <Flex flexDirection={'column'} mt={{base:"120px",lg:"30px"}} gap={"6"}>
 
       {data.chattingapps && data.chattingapps.map((el,i) => (
         photoURL===el.photoURL ? 
-        <Flex  justify='center' alignItems='centre' height="40px" ml={"500px"} gap='2' key={i}>
+        <Flex  justify='center'  alignItems='centre' height="40px" mt={{base:"0px",lg:'-5px'}} ml={{base:"100px",lg:"500px"}} gap='2' key={i}>
           <Box  bg='tomato' w='auto' p={1} borderRadius={"20px"} mt={"10px"} color='white'>
         <Text fontSize='lg'>{el.message}</Text>
 
@@ -140,7 +141,7 @@ function Chatting() {
         src={el.photoURL} alt="Google account pic" />
     </Flex>
         : 
-        <Flex w="300px"  justify='left' ml="450px" alignItems='center' height="40px" gap='2' key={i}>
+        <Flex w="300px"  justify='left'  ml={{base:"0px",lg:"450px"}} alignItems='center' height="40px" gap='2' key={i}>
           <Image
           borderRadius='full'
           boxSize='50px' 
@@ -168,21 +169,22 @@ function Chatting() {
          width= {"100%"}
        
         >
-        <Input w={"450px"}
+        <Input w={{base:'250px',lg:"450px"}}
         position='fixed'
     left ={0}
     right= {0}
     bottom= {0}
     color='white'
    
-    ml={"450px"}
+    ml={{base:'0px',lg:"450px"}}
     mb="20px"
     height="2rem"
         placeholder='write your message here' type="text" value={messageValue} onChange={(e)=>setMessageValue(e.target.value)}/>
         <Button  colorScheme='red'  onClick={requestToMessage}
          position='fixed'
-         w="180px"
-         ml="910px"
+         w={{base:'140px',lg:"180px"}}
+         ml={{base:'250px',lg:"910px"}}
+         fontSize={{base:'14px',lg:"18px"}}
          left ={0}
          right= {0}
          bottom= {0}
