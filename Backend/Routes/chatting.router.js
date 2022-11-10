@@ -6,7 +6,7 @@ const chattingapps = require("./chatting.model");
 const AuthMiddleware = (req,res,next)=>{
     chattingapps.find().exec()
     .then((res)=>{
-      if(res.length>15){
+      if(res.length>9){
         let {_id}= res[0];
         chattingapps.deleteOne({_id:_id}).exec();
         next();
