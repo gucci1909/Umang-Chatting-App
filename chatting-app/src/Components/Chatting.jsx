@@ -11,7 +11,6 @@ import {
   Image,
   Input,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 
 const firebaseConfig = {
@@ -121,14 +120,18 @@ function Chatting() {
   // fontSize={{ base: '24px', md: '40px', lg: '56px' }}
   return (
     <>
-      <VStack direction={["row", "column"]} spacing="24px" align="left">
-        <Flex justify="center" alignItems="left" height="40px" mt={3} gap="2">
+      <Box>
+        <Flex justify="center" alignItems="centre" height="40px" mt={3} gap="2">
           <Heading color={"tomato"}>Umang's Chatting App</Heading>
           <Button colorScheme="blue" zIndex={2} onClick={() => auth.signOut()}>
             Sign Out
           </Button>
         </Flex>
-        <Flex direction="column" gap={"6"}>
+        <Flex
+          flexDirection={"column"}
+          mt={{ base: "10px", lg: "30px" }}
+          gap={"6"}
+        >
           {data.chattingapps &&
             data.chattingapps.map((el, i) =>
               photoURL === el.photoURL ? (
@@ -136,19 +139,17 @@ function Chatting() {
                   justify="center"
                   alignItems="centre"
                   height="40px"
-                  mt={{ base: "0px", lg: "20px" }}
-                  ml={{ base: "100px", lg: "50px" }}
-                  mr={{ base: "100px", lg: "50px" }}
-                  mb={{ base: "100px", lg: "50px" }}
-                  key={i}
+                  mt={{ base: "0px", lg: "-5px" }}
+                  ml={{ base: "100px", lg: "500px" }}
                   gap="2"
+                  key={i}
                 >
                   <Box
                     bg="tomato"
                     w="auto"
-                    h="auto"
-                    borderRadius={"100"}
-                    mt={"5px"}
+                    p={1}
+                    borderRadius={"20px"}
+                    mt={"10px"}
                     color="white"
                   >
                     <Text fontSize="lg">{el.message}</Text>
@@ -181,14 +182,12 @@ function Chatting() {
                 </Flex>
               ) : (
                 <Flex
-                  w="auto"
-                  h="auto"
+                  w="300px"
                   justify="left"
                   ml={{ base: "0px", lg: "450px" }}
                   alignItems="center"
                   height="40px"
                   gap="2"
-                  mt={{ base: "0px", lg: "25px" }}
                   key={i}
                 >
                   <Image
@@ -200,7 +199,6 @@ function Chatting() {
                   <Box
                     bg="#718096"
                     w="auto"
-                    h="auto"
                     p={1}
                     borderRadius={"20px"}
                     mt={"10px"}
@@ -213,7 +211,7 @@ function Chatting() {
                       zIndex={2}
                       h="20px"
                       mr="10px"
-                      colorScheme="blue"
+                      colorScheme="teal"
                       onClick={() => handleMessage(el._id, el.photoURL)}
                     >
                       Edit
@@ -221,7 +219,7 @@ function Chatting() {
                     <Button
                       zIndex={2}
                       h="20px"
-                      colorScheme="blue"
+                      colorScheme="teal"
                       onClick={() => handleDelete(el._id, el.photoURL)}
                     >
                       Delete
@@ -232,7 +230,7 @@ function Chatting() {
             )}
           <div ref={space}></div>
         </Flex>
-      </VStack>
+      </Box>
       <FormControl>
         <Flex
           justify={"center"}
