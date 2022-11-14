@@ -1,9 +1,9 @@
-import "./App.css";
+import React from "react";
+import Chatting from "./Chatting";
+import Signup from "./Signup";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import Chatting from "./Components/Chatting";
-import { Box } from "@chakra-ui/react";
-import PrivateRoute from "./Components/PrivateRoute";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDu9vt8G3TVHwkJvfilXa0lyvwst3Da_lI",
@@ -16,20 +16,14 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-function App() {
-  document.body.style = "background: #FED7D7;";
-  return (
-    <Box className="App">
-      <Box>
-        {
-          <PrivateRoute>
-            <Chatting />
-          </PrivateRoute>
-        }
-      </Box>
-    </Box>
-  );
+function PrivateRoute() {
+  const [user] = useAuthState(auth);
+  if (user) {
+    return <Chatting />;
+  }
+  return <Signup />;
 }
 
-export default App;
+export default PrivateRoute;

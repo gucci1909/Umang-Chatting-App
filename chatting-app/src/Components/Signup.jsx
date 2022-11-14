@@ -39,7 +39,7 @@ function Signup() {
       >
         Welcome to Umang Arora's Chatting App
       </Heading>
-      <Link color="tomato" fontSize={{ base: "14px", lg: "20px" }}>
+      <Link color="teal" fontSize={{ base: "14px", lg: "20px" }}>
         <a href="https://github.com/gucci1909/Umang-Chatting-App.git">
           GitHub Repo Link
         </a>
@@ -76,7 +76,12 @@ function Signup() {
         display={{ base: "flex", lg: "none" }}
         src="https://media0.giphy.com/media/5QQ6FpAQ0syYLkONPB/giphy.gif"
       ></Image>
-      <Button zIndex={2} mt="auto" colorScheme="green" onClick={logginIn}>
+      <Button
+        zIndex={2}
+        mt={{ base: "auto", lg: "10px" }}
+        colorScheme="green"
+        onClick={logginIn}
+      >
         Sign up
       </Button>
     </Box>

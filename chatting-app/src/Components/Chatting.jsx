@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-// import styles from "./Chatting.module.css"
+import { BsFillTrashFill } from "react-icons/bs";
+import { AiFillEdit } from "react-icons/ai";
 import {
   Box,
   Button,
@@ -28,14 +29,14 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
 function Chatting() {
-  const space = useRef();
+  const space = useRef(null);
   const [messageValue, setMessageValue] = useState("");
   const [data, setData] = useState([]);
   const handleData = async () => {
-    let res = await fetch(`https://dry-hamlet-98371.herokuapp.com/chatting`);
+    let res = await fetch(`https://mc-square-api-umang.onrender.com/chatting`);
     res = await res.json();
     setData(res);
-    space.current.scrollIntoView({ block: "end" });
+    space.current?.scrollIntoView({ behavior: "smooth" });
   };
   useEffect(() => {
     handleData();
@@ -46,27 +47,33 @@ function Chatting() {
     if (messageValue.length === 0) {
       return;
     } else {
-      let { photoURL } = auth.currentUser;
+      let { displayName, photoURL, uid } = auth.currentUser;
       let data1 = {
         message: messageValue,
         photoURL: photoURL,
+        displayName: displayName,
+        uid: uid,
       };
-      let res = await fetch(`https://dry-hamlet-98371.herokuapp.com/chatting`, {
-        method: "POST",
-        body: JSON.stringify(data1),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      setMessageValue("");
+      let res = await fetch(
+        `https://mc-square-api-umang.onrender.com/chatting`,
+        {
+          method: "POST",
+          body: JSON.stringify(data1),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       res = await res.json();
       console.log(res);
       handleData();
-      setMessageValue("");
+      
     }
   };
-  const handleMessage = (id, currentPhotoURL) => {
+  const handleMessage = (id, currentphotoURL) => {
     let { photoURL } = auth.currentUser;
-    if (photoURL === currentPhotoURL) {
+    if (photoURL === currentphotoURL) {
       const new_message = prompt("New Message");
       setTimeout(function () {
         handleEdit(new_message, id);
@@ -83,7 +90,7 @@ function Chatting() {
         message: message,
       };
       let res = await fetch(
-        `https://dry-hamlet-98371.herokuapp.com/chatting/${id}`,
+        `https://mc-square-api-umang.onrender.com/chatting/${id}`,
         {
           method: "PATCH",
           body: JSON.stringify(data),
@@ -97,11 +104,11 @@ function Chatting() {
       handleData();
     }
   };
-  const handleDelete = async (id, currentPhotoURL) => {
+  const handleDelete = async (id, currentphotoURL) => {
     let { photoURL } = auth.currentUser;
-    if (photoURL === currentPhotoURL) {
+    if (photoURL === currentphotoURL) {
       let res = await fetch(
-        `https://dry-hamlet-98371.herokuapp.com/chatting/${id}`,
+        `https://mc-square-api-umang.onrender.com/chatting/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -116,77 +123,140 @@ function Chatting() {
       alert("You don't have access to this message");
     }
   };
+  const handleKeyPress = async (event) => {
+    if (event.key === "Enter") {
+      if (messageValue.length === 0) {
+        return;
+      } else {
+        let { displayName, photoURL, uid } = auth.currentUser;
+        let data1 = {
+          message: messageValue,
+          photoURL: photoURL,
+          displayName: displayName,
+          uid: uid,
+        };
+        setMessageValue("");
+        let res = await fetch(
+          `https://mc-square-api-umang.onrender.com/chatting`,
+          {
+            method: "POST",
+            body: JSON.stringify(data1),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        res = await res.json();
+        console.log(res);
+        handleData();
+        
+      }
+    } else {
+      console.log("enter right key for sending message");
+    }
+  };
   const { photoURL } = auth.currentUser;
-  // fontSize={{ base: '24px', md: '40px', lg: '56px' }}
+  
+
   return (
     <>
       <Box>
         <Flex justify="center" alignItems="centre" height="40px" mt={3} gap="2">
-          <Heading color={"tomato"}>Umang's Chatting App</Heading>
-          <Button colorScheme="blue" zIndex={2} onClick={() => auth.signOut()}>
+          <Heading
+            color={"tomato"}
+            mt={{ lg: "-20px" }}
+            display={{ base: "none", lg: "flex" }}
+          >
+            Umang's Chatting App
+          </Heading>
+          <Button
+            colorScheme="blue"
+            mt={{ lg: "-10px" }}
+            ml={{ base: "200px", lg: "0px" }}
+            zIndex={2}
+            onClick={() => auth.signOut()}
+          >
             Sign Out
           </Button>
         </Flex>
         <Flex
-          flexDirection={"column"}
-          mt={{ base: "10px", lg: "30px" }}
+         flexDirection={"column"}
+          height={"620px"}
+          ml={{ base: "0px", lg: "100px" }}
+          mt={{ base: "-35px", lg: "-15px" }}
+          overflow="scroll"
           gap={"6"}
         >
           {data.chattingapps &&
             data.chattingapps.map((el, i) =>
               photoURL === el.photoURL ? (
-                <Flex
-                  justify="center"
-                  alignItems="centre"
-                  height="40px"
-                  mt={{ base: "0px", lg: "-5px" }}
-                  ml={{ base: "100px", lg: "500px" }}
-                  gap="2"
-                  key={i}
-                >
-                  <Box
-                    bg="tomato"
-                    w="auto"
-                    p={1}
-                    borderRadius={"20px"}
-                    mt={"10px"}
-                    color="white"
+                <>
+                  <Flex
+                    justify="right"
+                    alignItems="right"
+                    height="auto"
+                    w={{ base: "auto", lg: "850px" }}
+                    mt={{ base: "-20px", lg: "20px" }}
+                    ml={{ base: "-480px", lg: "200px" }}
+                    gap="2"
+                    key={i}
                   >
-                    <Text fontSize="lg">{el.message}</Text>
-                  </Box>
-                  <Box mt="40px" ml="-60px">
-                    <Button
-                      h="20px"
-                      zIndex={2}
-                      colorScheme="teal"
-                      mr="20px"
-                      onClick={() => handleMessage(el._id, el.photoURL)}
+                    <Box
+                      bg="tomato"
+                      w={{ base: "200px", lg: "auto" }}
+                      p={1}
+                      justify="center"
+                      alignItems="center"
+                      h={{ base: "auto", lg: "auto" }}
+                      borderRadius={"20px"}
+                      mt={"auto"}
+                      color="white"
                     >
-                      Edit
-                    </Button>
-                    <Button
-                      h="20px"
-                      zIndex={2}
-                      colorScheme="teal"
-                      onClick={() => handleDelete(el._id, el.photoURL)}
+                      <Text fontSize="lg">{el.message}</Text>
+                    </Box>
+                    <Image
+                      borderRadius="full"
+                      boxSize="50px"
+                      src={el.photoURL}
+                      alt="Google account pic"
+                    />
+                  </Flex>
+                  <Flex
+                    justify={"center"}
+                    alignItems={"center"}
+                    mt={"-20px"}
+                    ml={{ base: "240px", lg: "500px" }}
+                  >
+                    <Flex
+                      gap="10px"
                     >
-                      Delete
-                    </Button>
-                  </Box>
-                  <Image
-                    borderRadius="full"
-                    boxSize="50px"
-                    src={el.photoURL}
-                    alt="Google account pic"
-                  />
-                </Flex>
+                      <Button
+                        h="22px"
+                        colorScheme="teal"
+                        onClick={() => handleMessage(el._id, el.photoURL)}
+                      >
+                        <AiFillEdit />
+                      </Button>
+                      <Button
+                        h="22px"
+                        colorScheme="red"
+                        onClick={() => handleDelete(el._id, el.photoURL)}
+                      >
+                        <BsFillTrashFill />
+                      </Button>
+                    </Flex>
+                  </Flex>
+                </>
               ) : (
-                <Flex
-                  w="300px"
+                <Box
                   justify="left"
-                  ml={{ base: "0px", lg: "450px" }}
+                  ml={{ base: "0px", lg: "350px" }}
                   alignItems="center"
-                  height="40px"
+                  display={"flex"}
+                  mt={{ base: "-24px", lg: "30px" }}
+                  h={"30px"}
+                  w="auto"
+                  height={{ base: "auto", lg: "45px" }}
                   gap="2"
                   key={i}
                 >
@@ -196,36 +266,38 @@ function Chatting() {
                     src={el.photoURL}
                     alt="Google account pic"
                   />
-                  <Box
-                    bg="#718096"
-                    w="auto"
-                    p={1}
-                    borderRadius={"20px"}
-                    mt={"10px"}
-                    color="white"
+
+                  <Flex
+                    flexDirection={"column"}
                   >
-                    <Text fontSize="lg">{el.message}</Text>
-                  </Box>
-                  <Box mt="70px" ml="-60px">
-                    <Button
-                      zIndex={2}
-                      h="20px"
-                      mr="10px"
-                      colorScheme="teal"
-                      onClick={() => handleMessage(el._id, el.photoURL)}
+                    <Box
+                      ml={"0px"}
+                      color="linear-gradient(to left, #553c9a, #b393d3);"
+                      fontWeight="600"
+                      p={1}
+                      mt={{ base: "0px", lg: "0px" }}
+                      borderRadius={"20px"}
                     >
-                      Edit
-                    </Button>
-                    <Button
-                      zIndex={2}
-                      h="20px"
-                      colorScheme="teal"
-                      onClick={() => handleDelete(el._id, el.photoURL)}
+                      <Text
+                        borderRadius={"20px"}
+                        bgGradient="linear(to-l, #778899	,lightgreen)"
+                        w="70px"
+                      >
+                        {el.displayName.split(" ")[0]}
+                      </Text>
+                    </Box>
+                    <Box
+                      bg="#718096"
+                      w="auto"
+                      p={1}
+                      borderRadius={"20px"}
+                      mt={{ base: "auto", lg: "auto" }}
+                      color="white"
                     >
-                      Delete
-                    </Button>
-                  </Box>
-                </Flex>
+                      <Text fontSize="lg">{el.message}</Text>
+                    </Box>
+                  </Flex>
+                </Box>
               )
             )}
           <div ref={space}></div>
@@ -234,7 +306,6 @@ function Chatting() {
       <FormControl>
         <Flex
           justify={"center"}
-          mt="3"
           alignItems="center"
           position="fixed"
           top={0}
@@ -244,18 +315,20 @@ function Chatting() {
           width={"100%"}
         >
           <Input
+            mb="20px !important"
             w={{ base: "250px", lg: "450px" }}
             position="fixed"
             left={0}
             right={0}
             bottom={0}
-            color="white"
+            color="red"
             ml={{ base: "0px", lg: "450px" }}
-            mb="20px"
             height="2rem"
             placeholder="write your message here"
             type="text"
             value={messageValue}
+            onKeyPress={(e) => handleKeyPress(e)}
+            bgColor="lightgrey"
             onChange={(e) => setMessageValue(e.target.value)}
           />
           <Button
@@ -269,6 +342,7 @@ function Chatting() {
             right={0}
             bottom={0}
             mb="15px"
+            zIndex={2}
           >
             Send your message
           </Button>

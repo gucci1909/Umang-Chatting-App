@@ -13,6 +13,27 @@
   }
 }
 
+body {
+  overflow: overlay;
+}
+
+.overflow-scrolling {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.css-1rh9uwz {
+  width: auto !important;
+  position: auto !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -39,15 +60,15 @@
 
 /* CSS */
 .button-24 {
-  background: #FF4742;
-  border: 1px solid #FF4742;
+  background: #ff4742;
+  border: 1px solid #ff4742;
   border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
   box-sizing: border-box;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
-  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
   font-size: 16px;
   font-weight: 800;
   line-height: 16px;
@@ -67,9 +88,9 @@
 .button-24:active {
   background-color: initial;
   background-position: 0 0;
-  color: #FF4742;
+  color: #ff4742;
 }
 
 .button-24:active {
-  opacity: .5;
+  opacity: 0.5;
 }
