@@ -1,6 +1,6 @@
 # Umang-Chatting-App
 
-> Have a look on my chatting-app , I made it in my free time . Fell safe signing up in this app as I've used firebase for that and then , chat with people . You can edit or delete the messages you sent there . The best thing about the app is that your messages will be automatically deleted after it reaches a certain limit in the chat box . 
+>Chatting app allows you to communicate with people through chat. It enables you to send and receive messages. It also allows you to delete or modify your own messages . Fell safe signing up in this app as I've used firebase for that and then , chat with people . The best thing about the app is that your messages will be automatically deleted after it reaches a certain limit in the chat box . 
 
 ## Built With
 
