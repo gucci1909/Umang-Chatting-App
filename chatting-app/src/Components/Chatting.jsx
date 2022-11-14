@@ -183,7 +183,7 @@ function Chatting() {
          flexDirection={"column"}
           height={"620px"}
           ml={{ base: "0px", lg: "100px" }}
-          mt={{ base: "-35px", lg: "-15px" }}
+          mt={{ base: "-15px", lg: "-15px" }}
           overflow="scroll"
           gap={"6"}
         >
@@ -196,7 +196,7 @@ function Chatting() {
                     alignItems="right"
                     height="auto"
                     w={{ base: "auto", lg: "850px" }}
-                    mt={{ base: "-20px", lg: "20px" }}
+                    mt={{ base: "20px", lg: "20px" }}
                     ml={{ base: "-480px", lg: "200px" }}
                     gap="2"
                     key={i}
@@ -253,7 +253,7 @@ function Chatting() {
                   ml={{ base: "0px", lg: "350px" }}
                   alignItems="center"
                   display={"flex"}
-                  mt={{ base: "-24px", lg: "30px" }}
+                  mt={{ base: "5px", lg: "30px" }}
                   h={"30px"}
                   w="auto"
                   height={{ base: "auto", lg: "45px" }}
