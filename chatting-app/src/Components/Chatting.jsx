@@ -164,15 +164,16 @@ function Chatting() {
         <Flex justify="center" alignItems="centre" height="40px" mt={3} gap="2">
           <Heading
             color={"tomato"}
+            ml={{base:"-10px"}}
             mt={{ lg: "-20px" }}
-            display={{ base: "none", lg: "flex" }}
+            fontSize={{ base: "20px", md: "30px", lg: "40px" }}
           >
             Umang's Chatting App
           </Heading>
           <Button
             colorScheme="blue"
             mt={{ lg: "-10px" }}
-            ml={{ base: "200px", lg: "0px" }}
+            ml={{ base: "0px", lg: "0px" }}
             zIndex={2}
             onClick={() => auth.signOut()}
           >
@@ -281,7 +282,7 @@ function Chatting() {
                       <Text
                         borderRadius={"20px"}
                         bgGradient="linear(to-l, #778899	,lightgreen)"
-                        w="70px"
+                        w="80px"
                       >
                         {el.displayName.split(" ")[0]}
                       </Text>
@@ -316,7 +317,7 @@ function Chatting() {
         >
           <Input
             mb="20px !important"
-            w={{ base: "250px", lg: "450px" }}
+            w={{ base: "230px", lg: "450px" }}
             position="fixed"
             left={0}
             right={0}
@@ -336,7 +337,7 @@ function Chatting() {
             onClick={requestToMessage}
             position="fixed"
             w={{ base: "140px", lg: "180px" }}
-            ml={{ base: "250px", lg: "910px" }}
+            ml={{ base: "230px", lg: "910px" }}
             fontSize={{ base: "14px", lg: "18px" }}
             left={0}
             right={0}

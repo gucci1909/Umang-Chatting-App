@@ -62,23 +62,24 @@ function Signup() {
       </Flex>
       <Box
         bg="tomato"
-        w="400px"
-        ml={{ base: "0px", md: "140px", lg: "550px" }}
+        w={{base:"200px",lg:"400px"}}
+        ml={{ base: "80px", md: "140px", lg: "550px" }}
         p={1}
         borderRadius={"20px"}
         mt={{ base: "10px", lg: "40px" }}
         color="white"
       >
-        <Text>Lets Do Something Interesting </Text>
+        <Text>Firebase being used for SignUp</Text>
       </Box>
 
       <Image
         display={{ base: "flex", lg: "none" }}
+        mt={{base:"-80px"}}
         src="https://media0.giphy.com/media/5QQ6FpAQ0syYLkONPB/giphy.gif"
       ></Image>
       <Button
         zIndex={2}
-        mt={{ base: "auto", lg: "10px" }}
+        mt={{ base: "-120px", lg: "30px" }}
         colorScheme="green"
         onClick={logginIn}
       >

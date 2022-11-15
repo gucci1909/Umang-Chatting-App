@@ -19,7 +19,7 @@
 ## Screenshots
 
 ![App Screenshot](./images/umang-chatting-app.png)
-
+![App Screenshot](./images/umang-chatting.jpg)
 ## Run Locally
 
 Clone the project
