@@ -13,6 +13,8 @@ import {
   Input,
   Text,
 } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
+import { addMessages , removeMessages, updateMessages } from "../Redux/CRUD/crud.actions";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDu9vt8G3TVHwkJvfilXa0lyvwst3Da_lI",
@@ -29,18 +31,25 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
 function Chatting() {
+  const dispatch = useDispatch();
   const space = useRef(null);
   const [messageValue, setMessageValue] = useState("");
   const [data, setData] = useState([]);
+  console.log(data);
   const handleData = async () => {
-    let res = await fetch(`https://mc-square-api-umang.onrender.com/chatting`);
-    res = await res.json();
-    setData(res);
-    space.current?.scrollIntoView({ behavior: "smooth" });
+    try {
+      let res = await fetch(`https://mc-square-api-umang.onrender.com/chatting`);
+      res = await res.json();
+      setData(res);
+      space.current?.scrollIntoView({ behavior: "smooth" });
+      
+    } catch (error) {
+      
+    }
   };
   useEffect(() => {
     handleData();
-  }, [data]);
+  }, [data,dispatch]);
 
   const requestToMessage = async (e) => {
     e.preventDefault();
@@ -55,20 +64,8 @@ function Chatting() {
         uid: uid,
       };
       setMessageValue("");
-      let res = await fetch(
-        `https://mc-square-api-umang.onrender.com/chatting`,
-        {
-          method: "POST",
-          body: JSON.stringify(data1),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      res = await res.json();
-      console.log(res);
+      dispatch(addMessages(data1));
       handleData();
-      
     }
   };
   const handleMessage = (id, currentphotoURL) => {
@@ -89,35 +86,14 @@ function Chatting() {
       const data = {
         message: message,
       };
-      let res = await fetch(
-        `https://mc-square-api-umang.onrender.com/chatting/${id}`,
-        {
-          method: "PATCH",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      res = await res.json();
-      console.log(res);
+      dispatch(updateMessages(id,data));
       handleData();
     }
   };
   const handleDelete = async (id, currentphotoURL) => {
     let { photoURL } = auth.currentUser;
     if (photoURL === currentphotoURL) {
-      let res = await fetch(
-        `https://mc-square-api-umang.onrender.com/chatting/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      res = res.json;
-      console.log(res);
+      dispatch(removeMessages(id));
       handleData();
     } else {
       alert("You don't have access to this message");
@@ -136,18 +112,7 @@ function Chatting() {
           uid: uid,
         };
         setMessageValue("");
-        let res = await fetch(
-          `https://mc-square-api-umang.onrender.com/chatting`,
-          {
-            method: "POST",
-            body: JSON.stringify(data1),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        res = await res.json();
-        console.log(res);
+        dispatch(addMessages(data1));
         handleData();
         
       }
@@ -156,7 +121,6 @@ function Chatting() {
     }
   };
   const { photoURL } = auth.currentUser;
-  
 
   return (
     <>
