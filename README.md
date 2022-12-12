@@ -18,8 +18,9 @@
 
 ## Screenshots
 
-![App Screenshot](http://res.cloudinary.com/dtdqzefvj/image/upload/v1670846038/hgi5ohkx24e9gsra85ry.jpg)
 ![App Screenshot](http://res.cloudinary.com/dtdqzefvj/image/upload/v1670845932/d34o3rlv1h5lo3fhyrqq.png)
+![App Screenshot](http://res.cloudinary.com/dtdqzefvj/image/upload/v1670846038/hgi5ohkx24e9gsra85ry.jpg)
+
 ## Run Locally
 
 Clone the project
